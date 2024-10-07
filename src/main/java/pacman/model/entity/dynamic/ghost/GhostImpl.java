@@ -3,6 +3,7 @@ package pacman.model.entity.dynamic.ghost;
 import javafx.scene.image.Image;
 import pacman.model.entity.Renderable;
 import pacman.model.entity.dynamic.physics.*;
+import pacman.model.entity.dynamic.player.Pacman;
 import pacman.model.level.Level;
 import pacman.model.maze.Maze;
 
@@ -25,6 +26,7 @@ public class GhostImpl implements Ghost {
     private Set<Direction> possibleDirections;
     private Vector2D playerPosition;
     private Map<GhostMode, Double> speeds;
+    private Pacman player;
 
     public GhostImpl(Image image, BoundingBox boundingBox, KinematicState kinematicState, GhostMode ghostMode, Vector2D targetCorner, Direction currentDirection) {
         this.image = image;
@@ -35,7 +37,7 @@ public class GhostImpl implements Ghost {
         this.currentDirection = currentDirection;
         this.possibleDirections = new HashSet<>();
         this.targetCorner = targetCorner;
-        this.targetLocation = getTargetLocation();
+        //this.targetLocation = new Vector2D(0, 0);
     }
 
     @Override
@@ -43,6 +45,11 @@ public class GhostImpl implements Ghost {
         this.speeds = speeds;
     }
 
+    public void setPlayer(Pacman player){
+        System.out.println(player);
+        this.player = player;
+        this.targetLocation = getTargetLocation();
+    }
     @Override
     public Image getImage() {
         return image;
@@ -71,12 +78,19 @@ public class GhostImpl implements Ghost {
         }
     }
 
+    private void setPacman(Pacman player) {
+        this.player = player;
+        this.targetLocation = getTargetLocation();
+    }
+
     private Vector2D getTargetLocation() {
-        return switch (this.ghostMode) {
-            // how does Ghost get the Player's position ??
-            case CHASE -> this.playerPosition;
-            case SCATTER -> this.targetCorner;
-        };
+        //System.out.println("Ghost receive pacman location: " + player.getPositionBeforeLastUpdate());
+        if (player != null) {
+            return switch (this.ghostMode) {
+                case SCATTER -> this.targetCorner;
+                case CHASE -> this.player.getPosition();
+            };
+        } return new Vector2D(0,0);
     }
 
     private Direction selectDirection(Set<Direction> possibleDirections) {
@@ -89,7 +103,7 @@ public class GhostImpl implements Ghost {
         for (Direction direction : possibleDirections) {
             // ghosts never choose to reverse travel
             if (direction != currentDirection.opposite()) {
-                distances.put(direction, Vector2D.calculateEuclideanDistance(this.kinematicState.getPotentialPosition(direction), this.targetLocation));
+                distances.put(direction, Vector2D.calculateEuclideanDistance(this.kinematicState.getPotentialPosition(direction), this.targetCorner));
             }
         }
 

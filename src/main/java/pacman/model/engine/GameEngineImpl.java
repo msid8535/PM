@@ -23,7 +23,6 @@ public class GameEngineImpl implements GameEngine {
 
     public GameEngineImpl(String configPath) {
         this.currentLevelNo = 0;
-
         init(new GameConfigurationReader(configPath));
     }
 

@@ -2,7 +2,9 @@ package pacman.model.maze;
 
 import pacman.model.entity.dynamic.DynamicEntity;
 import pacman.model.entity.Renderable;
+import pacman.model.entity.dynamic.ghost.GhostImpl;
 import pacman.model.entity.dynamic.physics.Direction;
+import pacman.model.entity.dynamic.player.Pacman;
 
 import java.util.*;
 
@@ -47,6 +49,18 @@ public class Maze {
             }
 
             this.renderables.add(renderable);
+        }
+    }
+
+    /***
+     * this sets the target as pacman
+     */
+    public void setTarget() {
+        for (Renderable ghost : ghosts) {
+            if (ghost instanceof GhostImpl) {
+                GhostImpl ghostI = (GhostImpl) ghost;
+                ghostI.setPlayer((Pacman) this.pacman);
+            }
         }
     }
 

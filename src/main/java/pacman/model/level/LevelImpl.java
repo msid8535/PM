@@ -1,5 +1,6 @@
 package pacman.model.level;
 
+import javafx.scene.control.Label;
 import org.json.simple.JSONObject;
 import pacman.ConfigurationParseException;
 import pacman.model.entity.Renderable;
@@ -12,6 +13,8 @@ import pacman.model.entity.dynamic.player.Pacman;
 import pacman.model.entity.staticentity.StaticEntity;
 import pacman.model.entity.staticentity.collectable.Collectable;
 import pacman.model.maze.Maze;
+import pacman.model.observer.GameOverScreen;
+import pacman.view.GameWindow;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,6 +37,8 @@ public class LevelImpl implements Level {
     private int numLives;
     private List<Renderable> collectables;
     private GhostMode currentGhostMode;
+    private int pacmanSpeed;
+    public int score;
 
     public LevelImpl(JSONObject levelConfiguration,
                      Maze maze) {
@@ -153,21 +158,25 @@ public class LevelImpl implements Level {
 
     @Override
     public void moveLeft() {
+        //System.out.println(player.getPosition());
         player.left();
     }
 
     @Override
     public void moveRight() {
+        //System.out.println(player.getPosition());
         player.right();
     }
 
     @Override
     public void moveUp() {
+        //System.out.println(player.getPosition());
         player.up();
     }
 
     @Override
     public void moveDown() {
+        //System.out.println(player.getPosition());
         player.down();
     }
 
@@ -187,11 +196,20 @@ public class LevelImpl implements Level {
 
     @Override
     public void handleLoseLife() {
+        this.numLives -= 1; //reduce numLives
+        if (numLives >= 0) {
+            System.out.println(numLives);
+            maze.reset();
+        } else {
+            handleGameEnd();
+            System.exit(0);
+        }
     }
 
     @Override
     public void handleGameEnd() {
-
+        GameOverScreen over = new GameOverScreen();
+        //display game over text on screen for 5 seconds
     }
 
     @Override

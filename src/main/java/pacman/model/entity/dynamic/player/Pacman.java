@@ -7,6 +7,7 @@ import pacman.model.entity.staticentity.collectable.Collectable;
 import pacman.model.level.Level;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class Pacman implements Controllable {
 
@@ -20,12 +21,7 @@ public class Pacman implements Controllable {
     private Set<Direction> possibleDirections;
     private boolean isClosedImage;
 
-    public Pacman(
-            Image currentImage,
-            Map<PacmanVisual, Image> images,
-            BoundingBox boundingBox,
-            KinematicState kinematicState
-    ){
+    public Pacman(Image currentImage, Map<PacmanVisual, Image> images, BoundingBox boundingBox, KinematicState kinematicState){
         this.currentImage = currentImage;
         this.images = images;
         this.boundingBox = boundingBox;
@@ -71,26 +67,50 @@ public class Pacman implements Controllable {
 
     @Override
     public void up() {
-        this.kinematicState.up();
-        this.currentImage = images.get(PacmanVisual.UP);
+        //kinematicState.update();
+        if (this.possibleDirections.contains(Direction.UP)) {//possibleDirections.contains(Direction.UP)
+            this.kinematicState.up();
+            this.currentImage = images.get(PacmanVisual.UP);
+        } else {
+            System.out.println(possibleDirections);
+            System.out.println("UP is not valid");
+        }
     }
 
     @Override
     public void down() {
-        this.kinematicState.down();
-        this.currentImage = images.get(PacmanVisual.DOWN);
+        //kinematicState.update();
+        if (this.possibleDirections.contains(Direction.DOWN)) {
+            this.kinematicState.down();
+            this.currentImage = images.get(PacmanVisual.DOWN);
+        } else {
+            System.out.println(possibleDirections);
+            System.out.println("DOWN is not valid");
+        }
     }
 
     @Override
     public void left() {
-        this.kinematicState.left();
-        this.currentImage = images.get(PacmanVisual.LEFT);
+        //kinematicState.update();
+        if (this.possibleDirections.contains(Direction.LEFT)) {
+            this.kinematicState.left();
+            this.currentImage = images.get(PacmanVisual.LEFT);
+        } else {
+            System.out.println(possibleDirections);
+            System.out.println("LEFT is not valid");
+        }
     }
 
     @Override
     public void right() {
-        this.kinematicState.right();
-        this.currentImage = images.get(PacmanVisual.RIGHT);
+        //kinematicState.update();
+        if (this.possibleDirections.contains(Direction.RIGHT)) {
+            this.kinematicState.right();
+            this.currentImage = images.get(PacmanVisual.RIGHT);
+        } else {
+            System.out.println(possibleDirections);
+            System.out.println("RIGHT is not valid");
+        }
     }
 
     @Override
@@ -120,7 +140,7 @@ public class Pacman implements Controllable {
                 .build();
 
         // go left by default
-        left();
+        //left();
     }
 
     @Override
