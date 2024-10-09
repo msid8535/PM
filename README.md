@@ -1,4 +1,4 @@
-Created in Java using JavaFX platform
+Created by Mohsin Siddiqui in Java using JavaFX platform
 
 To run the game:
 
