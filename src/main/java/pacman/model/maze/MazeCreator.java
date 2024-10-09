@@ -92,11 +92,7 @@ public class MazeCreator {
                     if (renderableType == 'g') {
                         z += 1;
                     }
-
-
-
                 }
-
                 y += 1;
             }
 
@@ -132,7 +128,7 @@ public class MazeCreator {
                     return new GhostFactory(ghostImage, GhostMode.getNextGhostMode(GhostMode.SCATTER), fourthCorner).createRenderable(xPosition, yPosition);
                 }
             case '7':
-                return new PelletFactory(pelletImage, Renderable.Layer.BACKGROUND, 0).createRenderable(xPosition, yPosition);
+                return new PelletFactory(pelletImage, Renderable.Layer.BACKGROUND, 10).createRenderable(xPosition, yPosition);
             case '1':
                 return new WallFactory(horImage).createRenderable(xPosition, yPosition);
             case '2':

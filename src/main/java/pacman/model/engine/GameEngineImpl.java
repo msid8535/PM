@@ -83,5 +83,9 @@ public class GameEngineImpl implements GameEngine {
         currentLevel.tick();
     }
 
+    public Maze getMaze() {
+        return maze;
+    }
+
 }
 

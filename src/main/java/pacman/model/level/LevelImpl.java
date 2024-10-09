@@ -2,6 +2,7 @@ package pacman.model.level;
 
 import javafx.scene.control.Label;
 import org.json.simple.JSONObject;
+import pacman.App;
 import pacman.ConfigurationParseException;
 import pacman.model.entity.Renderable;
 import pacman.model.entity.dynamic.DynamicEntity;
@@ -142,7 +143,9 @@ public class LevelImpl implements Level {
                 }
             }
         }
-
+        if (isLevelFinished()) {
+            //move to nextlevel
+        }
         tickCount++;
     }
 
@@ -198,8 +201,15 @@ public class LevelImpl implements Level {
     public void handleLoseLife() {
         this.numLives -= 1; //reduce numLives
         if (numLives >= 0) {
-            System.out.println(numLives);
-            maze.reset();
+            System.out.println("Life lost, remaining lives are: " + numLives);
+            //reset ghosts and pacman
+            player.reset();
+            int length = ghosts.size();
+            int numGhosts = 0;
+            while (numGhosts < length) {
+                ghosts.get(numGhosts).reset();
+                numGhosts++;
+            }
         } else {
             handleGameEnd();
             System.exit(0);
@@ -214,6 +224,6 @@ public class LevelImpl implements Level {
 
     @Override
     public void collect(Collectable collectable) {
-
+        //increasescore
     }
 }

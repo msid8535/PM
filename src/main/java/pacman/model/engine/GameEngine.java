@@ -1,6 +1,8 @@
 package pacman.model.engine;
 
 import pacman.model.entity.Renderable;
+import pacman.model.maze.Maze;
+
 import java.util.List;
 
 
@@ -46,4 +48,6 @@ public interface GameEngine {
      * Instruct the model to progress forward in time by one increment.
      */
     void tick();
+
+    Maze getMaze();
 }

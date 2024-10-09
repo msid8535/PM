@@ -48,6 +48,10 @@ public class GameWindow {
         return scene;
     }
 
+    public Pane getPane() {
+        return pane;
+    }
+
     public void run() {
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(34),
                 t -> this.draw()));
@@ -90,5 +94,9 @@ public class GameWindow {
         }
 
         entityViews.removeIf(EntityView::isMarkedForDelete);
+    }
+
+    public int getLives() {
+        return model.getMaze().getNumLives();
     }
 }

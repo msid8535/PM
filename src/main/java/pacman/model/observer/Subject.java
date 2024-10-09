@@ -1,7 +1,12 @@
 package pacman.model.observer;
 
+import javafx.scene.control.Label;
+
+import java.util.List;
+
 public interface Subject {
     void addObserver(Observer observer);
     void removeObserver(Observer observer);
-    void notifyObservers(String event);
+    void notifyObservers();
+    List<Label> draw_labels();
 }

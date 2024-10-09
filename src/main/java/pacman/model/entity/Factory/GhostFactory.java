@@ -26,7 +26,7 @@ public class GhostFactory implements RenderableFactory {
     @Override
     public Renderable createRenderable(int x, int y) {
         // Create the bounding box for the ghost
-        BoundingBox boundingBox = new BoundingBoxImpl(new Vector2D(x, y), MazeCreator.RESIZING_FACTOR, MazeCreator.RESIZING_FACTOR);
+        BoundingBox boundingBox = new BoundingBoxImpl(new Vector2D(x, y), 20, 20);
 
         // Create the KinematicState using the builder
         KinematicState kinematicState = new KinematicStateImpl.KinematicStateBuilder()

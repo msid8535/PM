@@ -1,4 +1,5 @@
 package pacman.model;
+import javafx.scene.control.Label;
 import pacman.model.observer.Subject;
 import pacman.model.observer.Observer;
 
@@ -18,11 +19,26 @@ public class GameState implements Subject {
         observers.remove(observer);
     }
 
+    @Override
+    public void notifyObservers() {
+
+    }
+
+    @Override
+    public List<Label> draw_labels() {
+        return List.of();
+    }
+
+    public List<Observer> getObservers() {
+        return observers;
+    }
     public void notifyObservers(String event) {
         for (Observer observer : observers) {
             observer.update(event, this); // Notify observers of the event (like score/lives change)
         }
     }
+
+
     public int getScore(){
         return this.score;
     }
@@ -39,18 +55,14 @@ public class GameState implements Subject {
 
     public void increaseScore(int added) {
         this.score += added;
-        int winningNum = 284729486;
-        if (score == winningNum) {
-            // do update("gameWin", something)
-        }
+        notifyObservers("scoreChange");
     }
 
     public void reduceLives() {
         this.lives -= 1;
-        if (this.lives == 0) {
-            // do update("game over", something);
-            // its supposed to display game over screen and then end
-            System.exit(0);
+        if (getLives() == 0) {
+            notifyObservers("gameOver");
+
         };
     }
 }
