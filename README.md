@@ -1,4 +1,5 @@
-Created by Mohsin Siddiqui in Java using JavaFX platform
+Created by Mohsin Siddiqui in Java using JavaFX platform.
+
 To initialize:
 
       gradle init (initializing)
