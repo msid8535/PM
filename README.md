@@ -1,6 +1,5 @@
 Created by Mohsin Siddiqui in Java using JavaFX platform
 
+      gradle init (initializing)
 To run the game:
-
-1. gradle init (initializing)
-2. gradle clean build run
+      gradle clean build run
